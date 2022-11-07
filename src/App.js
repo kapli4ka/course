@@ -58,7 +58,7 @@ function App() {
             defaultOption="Сортировка по"
             options={[
                 {value: "title", name: "По названию"},
-                {value: "body", name: "По описаниюdsds"}
+                {value: "body", name: "По описанию"}
             ]}
 
         />
