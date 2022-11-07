@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;/*сбросили дефолтные настройки браузара по форматированию*/
+}
+
+#root {
+
+    display: flex ;/*расположение по на пересечении линий*/
+    justify-content: center;/*выравнивание по центру*/
+}
+
+
+.App {
+    width: 800px ;
+}
+
+.post {
+    display: flex;
+    padding: 15px;/*внутренний отступ*/
+    border: 2px solid teal;/*рамка сплошная зеленого цвета*/
+    margin: 15px; /*внешний отступ*/
+    justify-content: space-between;/*выравнивание в контейнере горизонтальное*/
+    align-items: center;/*выравнивание в контейнере вертикальное*/
+}
