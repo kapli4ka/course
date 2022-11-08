@@ -35,7 +35,6 @@ function App() {
         }
         return posts;
     }
-    //aksdmjkljasflkjkjljaflkj
     
     const sortedPosts = qwe()
 
