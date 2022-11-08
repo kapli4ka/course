@@ -39,10 +39,6 @@ function App() {
     }, [sortSelected, posts])
 
 
-
-
-
-
     const sortSelect = (sort) => {
         setSortSelected(sort);
     }
