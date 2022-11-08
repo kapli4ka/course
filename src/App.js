@@ -30,7 +30,6 @@ function App() {
 
 
     const sortedPosts = useMemo(() => {
-        console.log('Выполнено')
         if (sortSelected){
             [...posts].sort((a, b) => a[sortSelected].localeCompare(b[sortSelected]))
 
@@ -39,12 +38,18 @@ function App() {
     }, [sortSelected, posts])
 
 
+
     const sortSelect = (sort) => {
         setSortSelected(sort);
     }
     const [searchQuery, setsearchQuery] = useState('')
 
-  return (
+    const searchedFilteredPosts = useMemo(() => {
+        return sortedPosts.filter(post => post.title.toLocaleLowerCase().includes(searchQuery))
+    }, [searchQuery, posts])
+
+
+    return (
     <div className="App">
         <PostForm create={createPost}/>
         <hr color={'teal'} style={{margin: '15px 0'}} size='3'/>
@@ -63,8 +68,8 @@ function App() {
             ]}
 
         />
-        {posts.length
-            ? <PostList remove={removePost} posts={sortedPosts} title='JS пост'/>
+        {searchedFilteredPosts.length
+            ? <PostList remove={removePost} posts={searchedFilteredPosts} title='JS пост'/>
             :
             <h1 style={{textAlign: 'center'}}>
                 Постов нету
