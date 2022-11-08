@@ -28,15 +28,20 @@ function App() {
 
     const [sortSelected, setSortSelected] = useState('')
 
-    function qwe() {
-        console.log('Выполнена')
+
+    const sortedPosts = useMemo(() => {
+        console.log('Выполнено')
         if (sortSelected){
-            return [...posts].sort((a, b) => a[sortSelected].localeCompare(b[sortSelected]))
+            [...posts].sort((a, b) => a[sortSelected].localeCompare(b[sortSelected]))
+
         }
         return posts;
-    }
+    }, [sortSelected, posts])
 
-    const sortedPosts = qwe()
+
+
+
+
 
     const sortSelect = (sort) => {
         setSortSelected(sort);
