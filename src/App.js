@@ -47,7 +47,9 @@ function App() {
     const searchedFilteredPosts = useMemo(() => {
         return sortedPosts.filter(post => post.title.toLocaleLowerCase().includes(searchQuery))
     }, [searchQuery, posts])
-
+    console.log(sortedPosts.length)
+    console.log(searchedFilteredPosts.length)
+    console.log(sortSelected)
 
     return (
     <div className="App">
@@ -68,10 +70,11 @@ function App() {
             ]}
 
         />
+
         {searchedFilteredPosts.length
             ? <PostList remove={removePost} posts={searchedFilteredPosts} title='JS пост'/>
             :
-            <h1 style={{textAlign: 'center'}}>
+            <h1 style={{textAlign: 'center'}} >
                 Постов нету
             </h1>
         }
