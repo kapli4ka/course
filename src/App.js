@@ -31,7 +31,7 @@ function App() {
 
     const sortedPosts = useMemo(() => {
         if (filter.sort){
-            [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
+           return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
 
         }
         return posts;
