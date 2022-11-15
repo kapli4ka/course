@@ -9,6 +9,7 @@ import MyButton from "./components/UI/button/MyButton";
 import MyInput from "./components/UI/input/MyInput";
 import PostForm from "./components/PostForm";
 import MySelect from "./components/UI/select/MySelect";
+import PostFilter from "./components/UI/PostFilter";
 
 function App() {
     const [posts, setPosts] = useState([
@@ -26,48 +27,35 @@ function App() {
         setPosts(posts.filter(p => p.id !== post.id))
     }
 
-    const [sortSelected, setSortSelected] = useState('')
-
+    const [filter, setFilter] = useState({sort: '', query: ''})//инициализация фильтра и поиска
 
     const sortedPosts = useMemo(() => {
-        if (sortSelected){
-            [...posts].sort((a, b) => a[sortSelected].localeCompare(b[sortSelected]))
+        if (filter.sort){
+            [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
 
         }
         return posts;
-    }, [sortSelected, posts])
-
-
-
-    const sortSelect = (sort) => {
-        setSortSelected(sort);
-    }
-    const [searchQuery, setsearchQuery] = useState('')
+    }, [filter.sort, posts])//функция фильтра и её кеширование
 
     const searchedFilteredPosts = useMemo(() => {
-        return sortedPosts.filter(post => post.title.toLocaleLowerCase().includes(searchQuery))
-    }, [searchQuery, posts])
-    console.log(sortedPosts.length)
-    console.log(searchedFilteredPosts.length)
-    console.log(sortSelected)
+        return sortedPosts.filter(post => post.title.toLocaleLowerCase().includes(filter.query))
+    }, [filter.query, sortedPosts])//функция поиска и её кеширование
+
+
+
+
+    // console.log(sortedPosts.length)
+    // console.log(searchedFilteredPosts.length)
+    // console.log(sortSelected)
 
     return (
     <div className="App">
         <PostForm create={createPost}/>
         <hr color={'teal'} style={{margin: '15px 0'}} size='3'/>
-        <MyInput
-            value={searchQuery}
-            placeholder={'Поиск'}
-            onChange = {e => setsearchQuery(e.target.value)}
-        />
-        <MySelect
-            value={sortSelected}
-            onChange={sortSelect}
-            defaultOption="Сортировка по"
-            options={[
-                {value: "title", name: "По названию"},
-                {value: "body", name: "По описанию"}
-            ]}
+
+        <PostFilter
+        filter={filter}
+        setFilter={setFilter}
 
         />
 
