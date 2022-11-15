@@ -32,7 +32,6 @@ function App() {
     const sortedPosts = useMemo(() => {
         if (filter.sort){
            return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
-
         }
         return posts;
     }, [filter.sort, posts])//функция фильтра и её кеширование
@@ -58,14 +57,9 @@ function App() {
         setFilter={setFilter}
 
         />
+       <PostList remove={removePost} posts={searchedFilteredPosts} title='JS пост'/>
 
-        {searchedFilteredPosts.length
-            ? <PostList remove={removePost} posts={searchedFilteredPosts} title='JS пост'/>
-            :
-            <h1 style={{textAlign: 'center'}} >
-                Постов нету
-            </h1>
-        }
+
 
     </div>
   );
