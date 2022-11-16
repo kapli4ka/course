@@ -19,7 +19,7 @@
     display: flex;
     padding: 15px;/*внутренний отступ*/
     border: 2px solid teal;/*рамка сплошная зеленого цвета*/
-    margin: 15px; /*внешний отступ*/
+    margin-top: 5px; /*внешний отступ*/
     justify-content: space-between;/*выравнивание в контейнере горизонтальное*/
     align-items: center;/*выравнивание в контейнере вертикальное*/
 }
