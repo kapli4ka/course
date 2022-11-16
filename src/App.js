@@ -34,7 +34,6 @@ function App() {
            return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
         }
         return posts;
- adding-search
     }, [filter.sort, posts])//функция фильтра и её кеширование
 
     const searchedFilteredPosts = useMemo(() => {
@@ -43,8 +42,6 @@ function App() {
 
     
     
-    
- main
 
 
 
