@@ -10,6 +10,7 @@ import MyInput from "./components/UI/input/MyInput";
 import PostForm from "./components/PostForm";
 import MySelect from "./components/UI/select/MySelect";
 import PostFilter from "./components/PostFilter";
+import MyModal from "./components/UI/Modal/MyModal";
 
 function App() {
     const [posts, setPosts] = useState([
@@ -40,19 +41,13 @@ function App() {
         return sortedPosts.filter(post => post.title.toLocaleLowerCase().includes(filter.query))
     }, [filter.query, sortedPosts])//функция поиска и её кеширование
 
-    
-    
-
-
-
-
-    // console.log(sortedPosts.length)
-    // console.log(searchedFilteredPosts.length)
-    // console.log(sortSelected)
 
     return (
     <div className="App">
-        <PostForm create={createPost}/>
+        <MyModal>
+            <PostForm create={createPost}/>
+        </MyModal>
+
         <hr color={'teal'} style={{margin: '15px 0'}} size='3'/>
 
         <PostFilter
