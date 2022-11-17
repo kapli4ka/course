@@ -23,3 +23,30 @@
     justify-content: space-between;/*выравнивание в контейнере горизонтальное*/
     align-items: center;/*выравнивание в контейнере вертикальное*/
 }
+
+/*.page {*/
+/*    position: absolute;*/
+/*    left: 15px;*/
+/*    right: 15px;*/
+/*}*/
+
+.list-enter {
+    transform: translateY(500px);
+}
+
+.list-enter-active {
+    opacity: 1;
+    transform: translateY(0px);
+    transition: opacity 500ms, transform 500ms;
+}
+
+.list-exit {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.list-exit-active {
+    opacity: 0;
+    transform: translateY(350px);
+    transition: opacity 500ms, transform 500ms;
+}
