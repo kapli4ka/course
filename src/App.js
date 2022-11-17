@@ -47,7 +47,7 @@ function App() {
 
     return (
     <div className="App">
-        <MyButton style = {{marginTop: 30}} onClick = { () => setModal(true)} >
+        <MyButton style = {{marginTop: 30, marginInline: 'auto', display: 'flex', fontSize: '35px'}} onClick = { () => setModal(true)} >
             Создать пост
         </MyButton>
         <MyModal
