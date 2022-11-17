@@ -12,6 +12,7 @@ import MySelect from "./components/UI/select/MySelect";
 import PostFilter from "./components/PostFilter";
 import MyModal from "./components/UI/Modal/MyModal";
 import {usePost} from "./hooks/usePost";
+import axios from "axios";
 
 function App() {
     const [posts, setPosts] = useState([
@@ -36,8 +37,14 @@ function App() {
 
     const searchedFilteredPosts = usePost(posts, filter.sort, filter.query)
 
+    async function fetchpost(){
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+        setPosts(response.data)
+    }
+
     return (
     <div className="App">
+        <button onClick={fetchpost} >Скачать </button>
         <MyButton style = {{marginTop: 30, marginInline: 'auto', display: 'flex', fontSize: '35px'}} onClick = { () => setModal(true)} >
             Создать пост
         </MyButton>
