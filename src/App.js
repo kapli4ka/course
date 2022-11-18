@@ -14,6 +14,7 @@ import MyModal from "./components/UI/Modal/MyModal";
 import {usePost} from "./hooks/usePost";
 import axios from "axios";
 import PostService from "./API/PostService";
+import Loading from "./components/UI/loading/loading";
 
 function App() {
     const [posts, setPosts] = useState([
@@ -34,18 +35,21 @@ function App() {
     const [modal, setModal] = useState(false)
 
     const searchedFilteredPosts = usePost(posts, filter.sort, filter.query)
+    const [loading, setLoading] = useState(false)
+
     useEffect(() => {
         fetchPost()
     }, [])
 
     async function fetchPost(){
+        setLoading(true)
         const posts = await PostService.getAll()
         setPosts(posts)
+        setLoading(false)
     }
 
     return (
     <div className="App">
-        {/*<button onClick={fetchPost} >Скачать </button>*/}
         <MyButton style = {{marginTop: 30, marginInline: 'auto', display: 'flex', fontSize: '35px'}} onClick = { () => setModal(true)} >
             Создать пост
         </MyButton>
@@ -63,7 +67,10 @@ function App() {
         setFilter={setFilter}
 
         />
-       <PostList remove={removePost} posts={searchedFilteredPosts} title='JS пост'/>
+        {loading
+            ? <div style={{display: 'flex', justifyContent: 'center', marginTop: 200}}><Loading/></div>
+            : <PostList remove={removePost} posts={searchedFilteredPosts} title='JS пост'/>
+        }
 
 
 
