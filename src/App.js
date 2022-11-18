@@ -1,4 +1,4 @@
-import React, {useMemo, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import Counter from "./components/Counter";
 import ClassCounter from "./components/ClassCounter";
 
@@ -13,12 +13,10 @@ import PostFilter from "./components/PostFilter";
 import MyModal from "./components/UI/Modal/MyModal";
 import {usePost} from "./hooks/usePost";
 import axios from "axios";
+import PostService from "./API/PostService";
 
 function App() {
     const [posts, setPosts] = useState([
-        {id: 0, title: 'aa', body: 'cc'},
-        {id: 1, title: 'bb', body: 'bb'},
-        {id: 2, title: 'cc', body: 'aa'},
     ])
 
     const createPost = (newPost) => {
@@ -36,15 +34,18 @@ function App() {
     const [modal, setModal] = useState(false)
 
     const searchedFilteredPosts = usePost(posts, filter.sort, filter.query)
+    useEffect(() => {
+        fetchPost()
+    }, [])
 
-    async function fetchpost(){
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
-        setPosts(response.data)
+    async function fetchPost(){
+        const posts = await PostService.getAll()
+        setPosts(posts)
     }
 
     return (
     <div className="App">
-        <button onClick={fetchpost} >Скачать </button>
+        {/*<button onClick={fetchPost} >Скачать </button>*/}
         <MyButton style = {{marginTop: 30, marginInline: 'auto', display: 'flex', fontSize: '35px'}} onClick = { () => setModal(true)} >
             Создать пост
         </MyButton>
