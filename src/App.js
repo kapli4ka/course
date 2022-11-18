@@ -1,4 +1,4 @@
-import React, {useMemo, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import Counter from "./components/Counter";
 import ClassCounter from "./components/ClassCounter";
 
@@ -10,16 +10,18 @@ import MyInput from "./components/UI/input/MyInput";
 import PostForm from "./components/PostForm";
 import MySelect from "./components/UI/select/MySelect";
 import PostFilter from "./components/PostFilter";
+import MyModal from "./components/UI/Modal/MyModal";
+import {usePost} from "./hooks/usePost";
+import axios from "axios";
+import PostService from "./API/PostService";
 
 function App() {
     const [posts, setPosts] = useState([
-        {id: 0, title: 'aa', body: 'cc'},
-        {id: 1, title: 'bb', body: 'bb'},
-        {id: 2, title: 'cc', body: 'aa'},
     ])
 
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
+        setModal(false)
 
     }
 
@@ -29,30 +31,31 @@ function App() {
 
     const [filter, setFilter] = useState({sort: '', query: ''})//инициализация фильтра и поиска
 
-    const sortedPosts = useMemo(() => {
-        if (filter.sort){
-           return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
-        }
-        return posts;
-    }, [filter.sort, posts])//функция фильтра и её кеширование
+    const [modal, setModal] = useState(false)
 
-    const searchedFilteredPosts = useMemo(() => {
-        return sortedPosts.filter(post => post.title.toLocaleLowerCase().includes(filter.query))
-    }, [filter.query, sortedPosts])//функция поиска и её кеширование
+    const searchedFilteredPosts = usePost(posts, filter.sort, filter.query)
+    useEffect(() => {
+        fetchPost()
+    }, [])
 
-    
-    
-
-
-
-
-    // console.log(sortedPosts.length)
-    // console.log(searchedFilteredPosts.length)
-    // console.log(sortSelected)
+    async function fetchPost(){
+        const posts = await PostService.getAll()
+        setPosts(posts)
+    }
 
     return (
     <div className="App">
-        <PostForm create={createPost}/>
+        {/*<button onClick={fetchPost} >Скачать </button>*/}
+        <MyButton style = {{marginTop: 30, marginInline: 'auto', display: 'flex', fontSize: '35px'}} onClick = { () => setModal(true)} >
+            Создать пост
+        </MyButton>
+        <MyModal
+            visibel={modal}
+            setVisible={setModal}
+        >
+            <PostForm create={createPost}/>
+        </MyModal>
+
         <hr color={'teal'} style={{margin: '15px 0'}} size='3'/>
 
         <PostFilter
