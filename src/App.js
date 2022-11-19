@@ -15,6 +15,7 @@ import {usePost} from "./hooks/usePost";
 import axios from "axios";
 import PostService from "./API/PostService";
 import Loading from "./components/UI/loading/loading";
+import {useFetch} from "./hooks/useFetch";
 
 function App() {
     const [posts, setPosts] = useState([
@@ -29,24 +30,19 @@ function App() {
     const removePost = (post) => {
         setPosts(posts.filter(p => p.id !== post.id))
     }
-
     const [filter, setFilter] = useState({sort: '', query: ''})//инициализация фильтра и поиска
-
     const [modal, setModal] = useState(false)
-
     const searchedFilteredPosts = usePost(posts, filter.sort, filter.query)
-    const [loading, setLoading] = useState(false)
+    const [fetchPost, isLoading, error] = useFetch(async () =>{
+        const posts = await PostService.getAll();
+        setPosts(posts)
+
+    })
 
     useEffect(() => {
         fetchPost()
     }, [])
 
-    async function fetchPost(){
-        setLoading(true)
-        const posts = await PostService.getAll()
-        setPosts(posts)
-        setLoading(false)
-    }
 
     return (
     <div className="App">
@@ -67,7 +63,9 @@ function App() {
         setFilter={setFilter}
 
         />
-        {loading
+        {error &&
+        <h1> Ошикбка ${error}</h1>}
+        {isLoading
             ? <div style={{display: 'flex', justifyContent: 'center', marginTop: 200}}><Loading/></div>
             : <PostList remove={removePost} posts={searchedFilteredPosts} title='JS пост'/>
         }
