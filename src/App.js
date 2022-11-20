@@ -16,6 +16,7 @@ import axios from "axios";
 import PostService from "./API/PostService";
 import Loading from "./components/UI/loading/loading";
 import {useFetch} from "./hooks/useFetch";
+import PageAndLimit from "./utilitys/PageAndLimit";
 
 function App() {
     const [posts, setPosts] = useState([
@@ -34,18 +35,23 @@ function App() {
     const [modal, setModal] = useState(false)
     const searchedFilteredPosts = usePost(posts, filter.sort, filter.query)
     const [fetchPost, isLoading, error] = useFetch(async () =>{
-        const posts = await PostService.getAll();
-        setPosts(posts)
+        const posts = await PostService.getAll(page, limit);
+        setPosts(posts.data)
+        const totalPost = posts.headers['x-total-count']
+        PageAndLimit(totalPost, limit, setTotalPages)
 
     })
-
+    const [page, setPage] = useState(1)//текущаю старница
+    const [limit, setLimit] = useState(10)//лимит на странице
+    const [totalPages, setTotalPages] = useState(0)//общие колличество страниц
     useEffect(() => {
         fetchPost()
-    }, [])
+    }, [page])
 
-
+    console.log(totalPages, page)
     return (
     <div className="App">
+        <button onClick={() => setPage(page+1)}>dfdsf s</button>
         <MyButton style = {{marginTop: 30, marginInline: 'auto', display: 'flex', fontSize: '35px'}} onClick = { () => setModal(true)} >
             Создать пост
         </MyButton>
