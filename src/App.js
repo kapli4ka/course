@@ -19,6 +19,7 @@ import {useFetch} from "./hooks/useFetch";
 import PageAndLimit from "./utilitys/PageAndLimit";
 import pageCount from "./utilitys/PageList";
 import MyPageButton from "./components/UI/pageButton/MyPageButton";
+import Pagination from "./components/UI/pageButton/Pagination";
 
 function App() {
     const [posts, setPosts] = useState([
@@ -46,7 +47,7 @@ function App() {
     const [page, setPage] = useState(1)//текущаю старница
     const [limit, setLimit] = useState(10)//лимит на странице
     const [totalPages, setTotalPages] = useState(0)//общие колличество страниц
-    let pagesList = pageCount(totalPages);//список из всего колличества страниц
+
     useEffect(() => {
         fetchPost()
     }, [page])
@@ -77,12 +78,7 @@ function App() {
             ? <div style={{display: 'flex', justifyContent: 'center', marginTop: 200}}><Loading/></div>
             : <PostList remove={removePost} posts={searchedFilteredPosts} title='Пост'/>
         }
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-            <MyPageButton onClick={() => setPage(page > 1? page-1: page)} key={page-1}>Back</MyPageButton>
-            {pagesList.map(c =>
-            <MyPageButton onClick={() => setPage(c)} key={c} page = {page}>{c}</MyPageButton>)}
-            <MyPageButton onClick={() => setPage(page < totalPages? page+1: page)} key={page+1}>Next</MyPageButton>
-        </div>
+        <Pagination page={page} setPage={setPage} totalPages={totalPages}/>
 
 
 
