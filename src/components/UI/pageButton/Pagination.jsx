@@ -8,11 +8,19 @@ const Pagination = ({totalPages, setPage, page}) => {
 
     return (
 
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-            <MyPageButton onClick={() =>setPage(page > 1? page-1: page)} key={page-1}>Back</MyPageButton>
+        <div style={{
+            display: 'flex',
+            justifyContent: 'center'}}>
+            <MyPageButton
+                onClick={() =>setPage(page > 1? page-1: page)}
+                key={page-1}>Back</MyPageButton>
             {pagesList.map(c =>
-                <MyPageButton onClick={() => setPage(c)} key={c} page = {page}>{c}</MyPageButton>)}
-            <MyPageButton onClick={() => setPage(page < totalPages? page+1: page)} key={page+1}>Next</MyPageButton>
+                <MyPageButton
+                    onClick={() => setPage(c)}
+                    key={c} page = {page}>{c}</MyPageButton>)}
+            <MyPageButton
+                onClick={() => setPage(page < totalPages? page+1: page)}
+                key={page+1}>Next</MyPageButton>
         </div>
     );
 };

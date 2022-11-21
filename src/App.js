@@ -75,10 +75,17 @@ function App() {
         {error &&
         <h1> Ошикбка ${error}</h1>}
         {isLoading
-            ? <div style={{display: 'flex', justifyContent: 'center', marginTop: 200}}><Loading/></div>
+            ? <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: 200
+            }}><Loading/></div>
             : <PostList remove={removePost} posts={searchedFilteredPosts} title='Пост'/>
         }
-        <Pagination page={page} setPage={setPage} totalPages={totalPages}/>
+        <Pagination
+            page={page}
+            setPage={setPage}
+            totalPages={totalPages}/>
 
 
 
