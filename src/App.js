@@ -46,7 +46,7 @@ function App() {
     const [page, setPage] = useState(1)//текущаю старница
     const [limit, setLimit] = useState(10)//лимит на странице
     const [totalPages, setTotalPages] = useState(0)//общие колличество страниц
-    let pagesList = pageCount(totalPages)
+    let pagesList = pageCount(totalPages);//список из всего колличества страниц
     useEffect(() => {
         fetchPost()
     }, [page])
