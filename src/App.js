@@ -77,9 +77,11 @@ function App() {
             ? <div style={{display: 'flex', justifyContent: 'center', marginTop: 200}}><Loading/></div>
             : <PostList remove={removePost} posts={searchedFilteredPosts} title='Пост'/>
         }
-        <div style={{display: 'flex', justifyContent: 'center'}}>{pagesList.map(c =>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+            <MyPageButton onClick={() => setPage(page > 1? page-1: page)} key={page-1}>Back</MyPageButton>
+            {pagesList.map(c =>
             <MyPageButton onClick={() => setPage(c)} key={c} page = {page}>{c}</MyPageButton>)}
-            <MyPageButton onClick={() => setPage(page+1)} key={page+1}>Next</MyPageButton>
+            <MyPageButton onClick={() => setPage(page < totalPages? page+1: page)} key={page+1}>Next</MyPageButton>
         </div>
 
 
