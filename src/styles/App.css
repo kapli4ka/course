@@ -24,6 +24,10 @@
     align-items: center;/*выравнивание в контейнере вертикальное*/
 }
 
+.post__btns {
+    display: flex;
+}
+
 
 .list-enter {
     transform: translateY(500px);

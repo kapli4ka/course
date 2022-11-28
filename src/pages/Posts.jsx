@@ -43,7 +43,6 @@ function Posts() {
         fetchPost()
     }, [page])
 
-    console.log(totalPages, page)
     return (
         <div className="App">
             <MyButton style = {{marginTop: 30, marginInline: 'auto', display: 'flex', fontSize: '35px'}} onClick = { () => setModal(true)} >

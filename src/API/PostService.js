@@ -9,5 +9,10 @@ export default class PostService {
             }})
         return response;
     }
+    static async getOne(postNumber) {
+        const responseOne = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postNumber}`
+            )
+        return responseOne;
+    }
 
 }
