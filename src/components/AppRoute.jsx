@@ -4,17 +4,14 @@ import HomePage from "../pages/HomePage";
 import Posts from "../pages/Posts";
 import PageNotFound from "../pages/PageNotFound";
 import OpenedPost from "../pages/OpenedPost";
+import {routes} from "../routing/paths"
 
 
 const AppRoute = () => {
-
+    const myRoute = routes.map(({path, element}, key) => <Route path={path} element={element} key={key}/>);
     return (
-
         <Routes >
-            <Route path={'/'} element={<HomePage/>}></Route>
-            <Route path={'/main'} element={<Posts/>} ></Route>
-            <Route path={'/*'} element={<PageNotFound/>}></Route>
-            <Route path={`/main/:id`} element={<OpenedPost/>}></Route>
+            {myRoute}
         </Routes>
     );
 };
