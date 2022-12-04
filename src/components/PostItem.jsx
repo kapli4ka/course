@@ -1,8 +1,7 @@
 import React from 'react';
 import MyButton from "./UI/button/MyButton";
-import {Link, Route, useNavigate} from "react-router-dom";
-import PageNotFound from "../pages/PageNotFound";
-import OpenedPost from "../pages/OpenedPost";
+import {useNavigate} from "react-router-dom";
+
 
 const PostItem = (props) => {
     const route = useNavigate()

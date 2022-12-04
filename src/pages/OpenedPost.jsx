@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import PostService from "../API/PostService";
 import {useFetch} from "../hooks/useFetch";
-import PostList from "../components/PostList";
 import Loading from "../components/UI/loading/loading";
 
 
