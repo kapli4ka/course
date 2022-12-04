@@ -4,11 +4,25 @@ import {privateRoutes, publicRoutes} from "../routing/paths"
 
 
 const AppRoute = () => {
-    const privateRoute = privateRoutes.map(({path, element}, key) => <Route path={path} element={element} key={key}/>);
-    const publicRoute = publicRoutes.map(({path, element}, key) => <Route path={path} element={element} key={key}/>);
+    const auth = false;
+    const privateRoute = privateRoutes.map(({path, element}, key) =>
+        <Route
+            path={path}
+            element={element}
+            key={key}
+        />);
+    const publicRoute = publicRoutes.map(({path, element}, key) =>
+        <Route
+            path={path}
+            element={element}
+            key={key}
+        />);
     return (
         <Routes >
-            {privateRoute}
+            {auth
+                ? privateRoute
+                : publicRoute
+            }
         </Routes>
     );
 };
