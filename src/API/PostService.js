@@ -7,18 +7,18 @@ export default class PostService {
             _limit: limit,
             _page:page,
             }})
-        return response;
+        return response;//посты с лимитом и страницами
     }
     static async getOne(postNumber) {
         const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postNumber}`
             )
-        return response;
+        return response;//конкретный пост
     }
 
     static async getComment(postNumber) {
         const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postNumber}/comments`
         )
-        return response;
+        return response;//комменты
     }
 
 }

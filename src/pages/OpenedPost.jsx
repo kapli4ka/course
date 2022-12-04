@@ -15,14 +15,17 @@ const OpenedPost = () => {
         const response = await PostService.getOne(params.id);
         setOnePost(response.data)
     });
-    useEffect(() => {
-        fetchOne()
-        fetchOneComment()
-    }, [])
+
     const[fetchOneComment, isLoadingComment, errorComment] = useFetch(async () =>{
         const response = await PostService.getComment(params.id);
         setOnePostComment(response.data)
     });
+
+    useEffect(() => {
+        fetchOne()
+        fetchOneComment()
+    }, [])
+
     const comments =onePostComment.map(({id, email, name, body}, key) =>
             <div key={key}>
                 {id}.

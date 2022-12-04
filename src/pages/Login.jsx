@@ -4,10 +4,10 @@ import MyButton from "../components/UI/button/MyButton";
 import {AuthContext} from "../context";
 
 const Login = () => {
-    const { setIsAuth} = useContext(AuthContext)
+    const {setIsAuth} = useContext(AuthContext)
     const login = () =>{
         setIsAuth(true)
-        localStorage.setItem('auth', 'true')
+        localStorage.setItem('auth', 'true')//запоминает в локал, что мы вошли
     }
     console.log(localStorage)
     return (

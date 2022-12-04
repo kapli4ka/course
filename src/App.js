@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from "react";
 import './styles/App.css'
-import {BrowserRouter, HashRouter, Link, Route, Router, Routes, } from "react-router-dom";
+import {BrowserRouter } from "react-router-dom";
 import PostLink from "./components/UI/link/PostLink";
 import AppRoute from "./components/AppRoute";
-import posts from "./pages/Posts";
 import {AuthContext} from "./context";
 
 
 function App() {
-    const [isAuth, setIsAuth] = useState(false)
-    const [isLoading, setIsLoading] = useState(true)
+    const [isAuth, setIsAuth] = useState(false)//состояние аутентификации
+    const [isLoading, setIsLoading] = useState(true)//состояние загрузки
 
     useEffect(()=> {
         if(localStorage.getItem('auth')){
