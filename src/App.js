@@ -1,74 +1,42 @@
-import React, {useEffect, useMemo, useRef, useState} from "react";
-import Counter from "./components/Counter";
-import ClassCounter from "./components/ClassCounter";
+import React, {useEffect, useState} from "react";
+import './styles/App.css'
+import {BrowserRouter, HashRouter, Link, Route, Router, Routes, } from "react-router-dom";
+import PostLink from "./components/UI/link/PostLink";
+import AppRoute from "./components/AppRoute";
+import posts from "./pages/Posts";
+import {AuthContext} from "./context";
 
-import './styles/App.css';
-import PostItem from "./components/PostItem";
-import PostList from "./components/PostList";
-import MyButton from "./components/UI/button/MyButton";
-import MyInput from "./components/UI/input/MyInput";
-import PostForm from "./components/PostForm";
-import MySelect from "./components/UI/select/MySelect";
-import PostFilter from "./components/PostFilter";
-import MyModal from "./components/UI/Modal/MyModal";
-import {usePost} from "./hooks/usePost";
-import axios from "axios";
-import PostService from "./API/PostService";
 
 function App() {
-    const [posts, setPosts] = useState([
-    ])
+    const [isAuth, setIsAuth] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
 
-    const createPost = (newPost) => {
-        setPosts([...posts, newPost])
-        setModal(false)
-
-    }
-
-    const removePost = (post) => {
-        setPosts(posts.filter(p => p.id !== post.id))
-    }
-
-    const [filter, setFilter] = useState({sort: '', query: ''})//инициализация фильтра и поиска
-
-    const [modal, setModal] = useState(false)
-
-    const searchedFilteredPosts = usePost(posts, filter.sort, filter.query)
-    useEffect(() => {
-        fetchPost()
-    }, [])
-
-    async function fetchPost(){
-        const posts = await PostService.getAll()
-        setPosts(posts)
-    }
-
+    useEffect(()=> {
+        if(localStorage.getItem('auth')){
+            setIsAuth(true)
+        }
+        setIsLoading(false)
+    },[])
     return (
-    <div className="App">
-        {/*<button onClick={fetchPost} >Скачать </button>*/}
-        <MyButton style = {{marginTop: 30, marginInline: 'auto', display: 'flex', fontSize: '35px'}} onClick = { () => setModal(true)} >
-            Создать пост
-        </MyButton>
-        <MyModal
-            visibel={modal}
-            setVisible={setModal}
+        <AuthContext.Provider value={
+            {
+                isAuth,
+                setIsAuth,
+                isLoading,
+                setIsLoading,
+            }
+
+        }
         >
-            <PostForm create={createPost}/>
-        </MyModal>
-
-        <hr color={'teal'} style={{margin: '15px 0'}} size='3'/>
-
-        <PostFilter
-        filter={filter}
-        setFilter={setFilter}
-
-        />
-       <PostList remove={removePost} posts={searchedFilteredPosts} title='JS пост'/>
+            <BrowserRouter>
+                <PostLink/>     {/*Линки на страницы*/}
+                <AppRoute/>     {/*Роутинг между страницами*/}
+            </BrowserRouter>
+        </AuthContext.Provider>
 
 
+    )
 
-    </div>
-  );
 }
 
 export default App;
