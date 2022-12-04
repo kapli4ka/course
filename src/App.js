@@ -4,14 +4,26 @@ import {BrowserRouter, HashRouter, Link, Route, Router, Routes, } from "react-ro
 import PostLink from "./components/UI/link/PostLink";
 import AppRoute from "./components/AppRoute";
 import posts from "./pages/Posts";
+import {AuthContext} from "./context";
 
 
 function App() {
+    const [isAuth, setIsAuth] = useState(false)
     return (
-        <BrowserRouter>
-            <PostLink/>     {/*Линки на страницы*/}
-            <AppRoute/>     {/*Роутинг между страницами*/}
-        </BrowserRouter>
+        <AuthContext.Provider value={
+            {
+                isAuth,
+                setIsAuth,
+            }
+
+        }
+        >
+            <BrowserRouter>
+                <PostLink/>     {/*Линки на страницы*/}
+                <AppRoute/>     {/*Роутинг между страницами*/}
+            </BrowserRouter>
+        </AuthContext.Provider>
+
 
     )
 

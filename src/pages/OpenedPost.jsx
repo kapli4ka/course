@@ -25,7 +25,7 @@ const OpenedPost = () => {
     });
     const comments =onePostComment.map(({id, email, name, body}, key) =>
             <div key={key}>
-                {id}
+                {id}.
                 {email}
                 {name}
                 {body}

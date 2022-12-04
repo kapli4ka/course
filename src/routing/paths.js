@@ -10,7 +10,7 @@ export const privateRoutes =
     [
         {path: '/', element: <HomePage/>},
         {path: '/main', element: <Posts/>},
-        {path: '/*', element: <PageNotFound/>},
+        {path: '/*', element:  <Navigate to={"/main"}/>},
         {path: '/main/:id', element: <OpenedPost/>},
     ]
 export const publicRoutes =
